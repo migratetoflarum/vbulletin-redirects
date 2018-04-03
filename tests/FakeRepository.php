@@ -30,6 +30,21 @@ class FakeRepository extends Repository
             ]);
         }
 
+        if ($id === 234) {
+            return (new Discussion())->forceFill([
+                'id' => 234,
+                'slug' => null,
+            ]);
+        }
+
+        if ($id === 345) {
+            return (new Discussion())->forceFill([
+                'id' => 345,
+                'slug' => 'private-discussion',
+                'is_private' => true,
+            ]);
+        }
+
         return null;
     }
 

@@ -49,7 +49,7 @@ class Redirector
     {
         $discussion = $this->repository->discussion($this->idFromQueryString($uri));
 
-        if (!$discussion) {
+        if (!$discussion || $discussion->is_private) {
             return null;
         }
 

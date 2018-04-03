@@ -26,9 +26,11 @@ class RedirectorTest extends TestCase
         $this->assertEquals('https://example.com/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/showthread.php?123')));
         $this->assertEquals('https://example.com/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/showthread.php?123-Amazing-Discussion')));
         $this->assertEquals('https://example.com/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/showthread.php?123-Amazing-Discussion&s=1234567890')));
+        $this->assertEquals('https://example.com/d/234', $this->redirector->redirect(new Uri('https://example.com/showthread.php?234-no-slug-in-flarum')));
 
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/showthread.php')));
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/showthread.php?12-Non-Existing-Thread')));
+        $this->assertNull($this->redirector->redirect(new Uri('https://example.com/showthread.php?345-Private-Thread')));
     }
 
     public function test_user_redirect()
