@@ -1,0 +1,51 @@
+{
+    "name": "migratetoflarum/vbulletin-redirects",
+    "description": "Redirect urls to your Flarum",
+    "keywords": [
+        "extension",
+        "flarum",
+        "migration",
+        "redirects"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Clark Winkelmann",
+            "email": "clark.winkelmann@gmail.com",
+            "homepage": "https://clarkwinkelmann.com/"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/migratetoflarum/vbulletin-redirects/issues",
+        "source": "https://github.com/migratetoflarum/vbulletin-redirects"
+    },
+    "require": {
+        "php": ">=7.1",
+        "flarum/core": "^0.1.0-beta.7",
+        "flarum/flarum-ext-tags": "^0.1.0-beta.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "vBulletin Redirects",
+            "icon": {
+                "name": "angle-double-right",
+                "backgroundColor": "#e7672e",
+                "color": "#fafafa"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "MigrateToFlarum\\VBulletinRedirects\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MigrateToFlarum\\VBulletinRedirects\\Tests\\": "tests/"
+        }
+    }
+}
