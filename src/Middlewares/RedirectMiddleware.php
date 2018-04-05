@@ -2,6 +2,7 @@
 
 namespace MigrateToFlarum\VBulletinRedirects\Middlewares;
 
+use Exception;
 use Flarum\Http\Exception\RouteNotFoundException;
 use Flarum\Settings\SettingsRepositoryInterface;
 use MigrateToFlarum\VBulletinRedirects\Redirector;
@@ -29,7 +30,17 @@ class RedirectMiddleware implements MiddlewareInterface
                  */
                 $settings = app(SettingsRepositoryInterface::class);
 
-                $status = $settings->get('migratetoflarum-vbulletin-redirects.redirectStatus', 302);
+                $status = intval($settings->get('migratetoflarum-vbulletin-redirects.redirectStatus'));
+
+                if (!$status) {
+                    // Default redirect type
+                    // Not using it as the setting default value as we want to convert an empty string to this value as well
+                    $status = 302;
+                }
+
+                if (!in_array($status, [301, 302])) {
+                    throw new Exception("Invalid vbulletin redirect status code $status");
+                }
 
                 return $response->withStatus($status)->withHeader('Location', $to);
             }
