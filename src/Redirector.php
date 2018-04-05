@@ -18,18 +18,22 @@ class Redirector
 
     public function redirect(UriInterface $uri):? string
     {
-        switch ($uri->getPath()) {
-            case '/showthread.php':
+        $pathParts = explode('/', $uri->getPath());
+        $filename = $pathParts[count($pathParts) - 1];
+
+        switch ($filename) {
+            case 'showthread.php':
                 return $this->redirectDiscussion($uri);
-            case '/member.php':
+            case 'member.php':
                 return $this->redirectUser($uri);
-            case '/forumdisplay.php':
+            case 'forumdisplay.php':
                 return $this->redirectTag($uri);
-            case '/activity.php':
-            case '/forum.php':
-            case '/login.php':
-            case '/register.php':
-            case '/search.php':
+            case 'activity.php':
+            case 'forum.php':
+            case 'index.php':
+            case 'login.php':
+            case 'register.php':
+            case 'search.php':
                 return $this->url->toPath('');
         }
 

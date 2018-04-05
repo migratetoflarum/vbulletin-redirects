@@ -26,7 +26,9 @@ class RedirectorTest extends TestCase
         $this->assertEquals('https://example.com/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/showthread.php?123')));
         $this->assertEquals('https://example.com/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/showthread.php?123-Amazing-Discussion')));
         $this->assertEquals('https://example.com/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/showthread.php?123-Amazing-Discussion&s=1234567890')));
+
         $this->assertEquals('https://example.com/d/234', $this->redirector->redirect(new Uri('https://example.com/showthread.php?234-no-slug-in-flarum')));
+        $this->assertEquals('https://example.com/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/subfolder/showthread.php?123')));
 
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/showthread.php')));
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/showthread.php?12-Non-Existing-Thread')));
@@ -39,6 +41,8 @@ class RedirectorTest extends TestCase
         $this->assertEquals('https://example.com/u/amazing-user', $this->redirector->redirect(new Uri('https://example.com/member.php?5-Amazing-User')));
         $this->assertEquals('https://example.com/u/amazing-user', $this->redirector->redirect(new Uri('https://example.com/member.php?5-Amazing-User&s=1234567890')));
 
+        $this->assertEquals('https://example.com/u/amazing-user', $this->redirector->redirect(new Uri('https://example.com/subfolder/member.php?5')));
+
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/member.php')));
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/member.php?12-Non-Existing-User')));
     }
@@ -49,6 +53,8 @@ class RedirectorTest extends TestCase
         $this->assertEquals('https://example.com/t/amazing-tag', $this->redirector->redirect(new Uri('https://example.com/forumdisplay.php?2-Amazing-Forum')));
         $this->assertEquals('https://example.com/t/amazing-tag', $this->redirector->redirect(new Uri('https://example.com/forumdisplay.php?2-Amazing-Forum&s=1234567890')));
 
+        $this->assertEquals('https://example.com/t/amazing-tag', $this->redirector->redirect(new Uri('https://example.com/subfolder/forumdisplay.php?2')));
+
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/forumdisplay.php')));
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/forumdisplay.php?12-Non-Existing-Forum')));
     }
@@ -57,9 +63,13 @@ class RedirectorTest extends TestCase
     {
         $this->assertEquals('https://example.com/', $this->redirector->redirect(new Uri('https://example.com/activity.php')));
         $this->assertEquals('https://example.com/', $this->redirector->redirect(new Uri('https://example.com/forum.php')));
+        $this->assertEquals('https://example.com/', $this->redirector->redirect(new Uri('https://example.com/index.php')));
         $this->assertEquals('https://example.com/', $this->redirector->redirect(new Uri('https://example.com/login.php')));
         $this->assertEquals('https://example.com/', $this->redirector->redirect(new Uri('https://example.com/register.php')));
         $this->assertEquals('https://example.com/', $this->redirector->redirect(new Uri('https://example.com/search.php?do=getnew&contenttype=vBForum_Post')));
+
+        $this->assertEquals('https://example.com/', $this->redirector->redirect(new Uri('https://example.com/subfolder/forum.php')));
+        $this->assertEquals('https://example.com/', $this->redirector->redirect(new Uri('https://example.com/subfolder/index.php')));
 
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/faq.php')));
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/sendmessage.php')));
