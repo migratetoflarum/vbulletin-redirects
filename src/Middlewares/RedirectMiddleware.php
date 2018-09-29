@@ -7,15 +7,17 @@ use Flarum\Http\Exception\RouteNotFoundException;
 use Flarum\Settings\SettingsRepositoryInterface;
 use MigrateToFlarum\VBulletinRedirects\Redirector;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Server\RequestHandlerInterface as Handler;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Stratigility\MiddlewareInterface;
+use Psr\Http\Server\MiddlewareInterface as Middleware;
+use Zend\Diactoros\Response\RedirectResponse;
 
-class RedirectMiddleware implements MiddlewareInterface
+class RedirectMiddleware implements Middleware
 {
-    public function __invoke(Request $request, Response $response, callable $out = null)
+    public function process(Request $request, Handler $handler): Response
     {
         try {
-            $response = $out($request, $response);
+            return $handler->handle($request);
         } catch (RouteNotFoundException $exception) {
             /**
              * @var $redirector Redirector
@@ -42,12 +44,10 @@ class RedirectMiddleware implements MiddlewareInterface
                     throw new Exception("Invalid vbulletin redirect status code $status");
                 }
 
-                return $response->withStatus($status)->withHeader('Location', $to);
+                return new RedirectResponse($to, $status);
             }
 
             throw $exception;
         }
-
-        return $response;
     }
 }

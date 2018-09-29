@@ -2,8 +2,8 @@
 
 namespace MigrateToFlarum\VBulletinRedirects\Tests;
 
-use Flarum\Forum\UrlGenerator;
 use Flarum\Http\RouteCollection;
+use Flarum\Http\UrlGenerator;
 
 class FakeUrlGenerator extends UrlGenerator
 {

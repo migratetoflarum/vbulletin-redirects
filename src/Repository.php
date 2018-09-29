@@ -2,10 +2,10 @@
 
 namespace MigrateToFlarum\VBulletinRedirects;
 
-use Flarum\Core\Discussion;
-use Flarum\Core\User;
+use Flarum\Discussion\Discussion;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\Tags\Tag;
+use Flarum\User\User;
 
 class Repository
 {

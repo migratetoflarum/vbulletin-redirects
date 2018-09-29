@@ -2,12 +2,19 @@
 
 namespace MigrateToFlarum\VBulletinRedirects;
 
-use Flarum\Forum\UrlGenerator;
+use Flarum\Http\UrlGenerator;
 use Psr\Http\Message\UriInterface;
 
 class Redirector
 {
+    /**
+     * @var Repository
+     */
     protected $repository;
+
+    /**
+     * @var UrlGenerator
+     */
     protected $url;
 
     public function __construct(Repository $repository, UrlGenerator $url)
@@ -34,7 +41,7 @@ class Redirector
             case 'login.php':
             case 'register.php':
             case 'search.php':
-                return $this->url->toPath('');
+                return $this->url->to('forum')->base();
         }
 
         return null;
@@ -63,7 +70,9 @@ class Redirector
             $discussionIdentifier .= '-' . $discussion->slug;
         }
 
-        return $this->url->toRoute('discussion', ['id' => $discussionIdentifier]);
+        return $this->url->to('forum')->route('discussion', [
+            'id' => $discussionIdentifier
+        ]);
     }
 
     protected function redirectUser(UriInterface $uri):? string
@@ -74,7 +83,9 @@ class Redirector
             return null;
         }
 
-        return $this->url->toRoute('user', ['username' => $user->username]);
+        return $this->url->to('forum')->route('user', [
+            'username' => $user->username
+        ]);
     }
 
     protected function redirectTag(UriInterface $uri):? string
@@ -85,6 +96,8 @@ class Redirector
             return null;
         }
 
-        return $this->url->toRoute('tag', ['slug' => $tag->slug]);
+        return $this->url->to('forum')->route('tag', [
+            'slug' => $tag->slug
+        ]);
     }
 }
