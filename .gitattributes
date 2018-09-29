@@ -1,7 +1,7 @@
 .git* export-ignore
 js/src export-ignore
-js/*.json
-js/*.js
-js/yarn.lock
+js/*.js* export-ignore
+js/yarn.lock export-ignore
+tests export-ignore
 
 js/dist/*.js -diff
