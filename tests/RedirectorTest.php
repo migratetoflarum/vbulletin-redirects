@@ -74,4 +74,17 @@ class RedirectorTest extends TestCase
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/faq.php')));
         $this->assertNull($this->redirector->redirect(new Uri('https://example.com/sendmessage.php')));
     }
+
+    public function test_subfolder()
+    {
+        $repository = new FakeRepository();
+        $url = new FakeUrlGenerator('/sub');
+        $this->redirector = new Redirector($repository, $url);
+
+        $this->assertEquals('https://example.com/sub/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/showthread.php?123')));
+        $this->assertEquals('https://example.com/sub/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/sub/showthread.php?123')));
+        $this->assertEquals('https://example.com/sub/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/incorrect-sub/showthread.php?123')));
+        $this->assertEquals('https://example.com/sub/d/123-amazing-discussion', $this->redirector->redirect(new Uri('https://example.com/multiple/sub/showthread.php?123')));
+        $this->assertEquals('https://example.com/sub/', $this->redirector->redirect(new Uri('https://example.com/sub/activity.php')));
+    }
 }

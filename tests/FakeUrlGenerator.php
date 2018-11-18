@@ -8,7 +8,7 @@ use Flarum\Http\UrlGenerator;
 
 class FakeUrlGenerator extends UrlGenerator
 {
-    public function __construct()
+    public function __construct(string $subfolder = '')
     {
         // do not call parent
 
@@ -31,7 +31,7 @@ class FakeUrlGenerator extends UrlGenerator
         );
 
         $this->routes['forum'] = new RouteCollectionUrlGenerator(
-            'https://example.com',
+            'https://example.com' . $subfolder,
             $routes
         );
     }
