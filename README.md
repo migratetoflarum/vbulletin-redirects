@@ -6,8 +6,6 @@ This extension configures redirects from vBulletin v4 urls to Flarum.
 
 ## Installation
 
-**This extension requires PHP7.1 or above**
-
 Use [Bazaar](https://discuss.flarum.org/d/5151-flagrow-bazaar-the-extension-marketplace) or install manually:
 
 ```bash
