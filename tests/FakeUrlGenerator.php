@@ -3,6 +3,7 @@
 namespace MigrateToFlarum\VBulletinRedirects\Tests;
 
 use Flarum\Http\RouteCollection;
+use Flarum\Http\RouteCollectionUrlGenerator;
 use Flarum\Http\UrlGenerator;
 
 class FakeUrlGenerator extends UrlGenerator
@@ -11,27 +12,27 @@ class FakeUrlGenerator extends UrlGenerator
     {
         // do not call parent
 
-        $this->routes = new RouteCollection();
+        $routes = new RouteCollection();
 
-        $this->routes->get(
+        $routes->get(
             '/d/{id:\d+(?:-[^/]*)?}[/{near:[^/]*}]',
             'discussion',
             null
         );
-        $this->routes->get(
+        $routes->get(
             '/u/{username}[/{filter:[^/]*}]',
             'user',
             null
         );
-        $this->routes->get(
+        $routes->get(
             '/t/{slug}',
             'tag',
             null
         );
-    }
 
-    public function toBase()
-    {
-        return 'https://example.com';
+        $this->routes['forum'] = new RouteCollectionUrlGenerator(
+            'https://example.com',
+            $routes
+        );
     }
 }

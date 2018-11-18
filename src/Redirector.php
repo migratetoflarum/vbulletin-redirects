@@ -41,7 +41,7 @@ class Redirector
             case 'login.php':
             case 'register.php':
             case 'search.php':
-                return $this->url->to('forum')->base();
+                return $this->url->to('forum')->path('');
         }
 
         return null;
