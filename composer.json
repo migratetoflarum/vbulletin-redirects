@@ -22,7 +22,7 @@
     },
     "require": {
         "flarum/core": "^0.1.0-beta.8",
-        "flarum/flarum-ext-tags": "^0.1.0-beta.8"
+        "flarum/tags": "^0.1.0-beta.9"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5"
